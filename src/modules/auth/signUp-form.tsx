@@ -18,11 +18,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { signupSchema } from "@/components/validation-schema";
+import { signupSchema } from "@/modules/auth/validation-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "../../components/ui/checkbox";
+import Link from "next/link";
 
 export function SignUpForm() {
   const form = useForm<z.infer<typeof signupSchema>>({
@@ -155,9 +156,9 @@ export function SignUpForm() {
         </Card>
         <div className="text-center text-sm">
           Already have an account?{" "}
-          <a href="/sign-in" className="underline underline-offset-4">
+          <Link href="/" className="underline underline-offset-4">
             Sign In
-          </a>
+          </Link>
         </div>
       </div>
     </Form>

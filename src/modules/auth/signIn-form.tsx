@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { loginSchema } from "@/components/validation-schema";
+import { loginSchema } from "@/modules/auth/validation-schema";
 import {
   Form,
   FormControl,
@@ -20,6 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import Link from "next/link";
 
 export function SignInForm() {
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -106,9 +107,9 @@ export function SignInForm() {
         </Card>
         <div className="text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="/sign-up" className="underline underline-offset-4">
+          <Link href="/sign-up" className="underline underline-offset-4">
             Sign up
-          </a>
+          </Link>
         </div>
       </div>
     </Form>
