@@ -1,8 +1,7 @@
+import { SignInForm } from "@/components/signIn-form";
 import { HandCoins } from "lucide-react";
-// import { SignInForm } from "@/components/signIn-form";
-// import { SignupForm } from "@/components/signUp-form";
 
-export default function Home() {
+const SignIn = () => {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
     <div className="flex w-full max-w-sm flex-col gap-6">
@@ -12,10 +11,10 @@ export default function Home() {
         </div>
         ExpensifyX
       </a>
-      {/* <SignInForm />
-      <SignupForm /> */}
+      <SignInForm />
     </div>
   </div>
-  
   );
-}
+};
+
+export default SignIn;
