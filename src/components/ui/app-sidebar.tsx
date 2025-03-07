@@ -21,7 +21,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
 const data = {
   navMain: [
     {
@@ -29,8 +28,8 @@ const data = {
       url: "#",
       items: [
         {
-          title: "Installation",
-          url: "#",
+          title: "Dashboard",
+          url: "/dashboard",
         },
         {
           title: "Project Structure",
@@ -43,8 +42,8 @@ const data = {
       url: "#",
       items: [
         {
-          title: "Routing",
-          url: "#",
+          title: "Expense",
+          url: "/expense",
         },
         {
           title: "Data Fetching",

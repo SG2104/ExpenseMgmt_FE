@@ -2,9 +2,7 @@ import { SignInForm } from "@/modules/auth/signIn-form";
 
 const SignIn = () => {
   return (
-    
       <SignInForm />
-  
   );
 };
 
