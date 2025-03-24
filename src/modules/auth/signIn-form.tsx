@@ -67,39 +67,46 @@ export function SignInForm() {
   };
 
   const handleGoogleSuccess = async (
+    //CredentialResponse is returned from the GoogleLogin component
+    //it contains a JWT-style Google token.
     credentialResponse: CredentialResponse
   ) => {
     try {
       const token = credentialResponse.credential;
       if (!token) throw new Error("Google token is missing.");
 
+      //apiEndpoint is the NESTJS backend route to handle Google login
       const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
       const apiEndpoint = `${backendURL}/api/v1/authentication/google-redirect`;
 
+      //sends the token to /google-redirect as JSON
       const res = await fetch(apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
-        credentials: "include", // ✅ important for cookie auth
+        credentials: "include", //ensures cookies can be received from backend.
       });
 
+      //if there is no response from the backend, it throws an error
       if (!res.ok) {
+        //res.text reads the error body from the response and throws an error
         const errorText = await res.text();
-        throw new Error(`❌ Backend error: ${res.status} - ${errorText}`);
+        throw new Error(`Backend error: ${res.status} - ${errorText}`);
       }
 
+      //if the response was correct, it reads the JSON response
       const data: { message: string } = await res.json();
 
       if (data?.message === "Login successful") {
-        alert("🎉 Google Login successful!");
+        alert("Google Login successful!");
         router.push("/dashboard");
       } else {
-        throw new Error("❌ Unexpected response from backend.");
+        throw new Error("Unexpected response from backend.");
       }
     } catch (error) {
       const errMsg =
         error instanceof Error ? error.message : "Unknown login error";
-      console.error("❌ Google Login Error:", error);
+      console.error("Google Login Error:", error);
       alert(`Google login failed: ${errMsg}`);
     }
   };
@@ -125,6 +132,9 @@ export function SignInForm() {
                   </Button>
 
                   <GoogleLogin
+                  //renders a "Login with Google" button
+                  //when clicked, Google's OAuth pops up
+                  //if success, it triggers the handleGoogleSuccess
                     onSuccess={handleGoogleSuccess}
                     onError={() => alert("Google login failed")}
                   />
