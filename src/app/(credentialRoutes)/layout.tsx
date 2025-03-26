@@ -14,8 +14,20 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/ui/app-sidebar";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { logout } from "@/lib/logout";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push("/");
+    } catch (err: any) {
+      alert("Error logging out: " + err.message);
+    }
+  };
   return (
     <div>
       <SidebarProvider>
@@ -40,6 +52,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
+            <Button variant="outline" onClick={handleLogout}>
+              Logout
+            </Button>
           </header>
           <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
         </SidebarInset>
