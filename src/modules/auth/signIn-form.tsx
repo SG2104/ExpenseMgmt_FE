@@ -54,12 +54,12 @@ export function SignInForm() {
     //this hits the NestJS backend (POST('login'))
 
     if (error) {
-      alert("❌ Login failed. Please check your credentials.");
+      alert("Login failed. Please check your credentials.");
       return;
     }
 //login successful (the backend sends)
     if (data?.message === "Login successful") {
-      console.log("🎉 Login successful!");
+      console.log("Login successful!");
       router.push("/dashboard");
     } else {
       alert("Login failed.");

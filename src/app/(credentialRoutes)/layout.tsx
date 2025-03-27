@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,18 +17,22 @@ import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { logout } from "@/lib/logout";
+import { useAuthApi } from "@/hooks/useAuthApi";
+import { ReactNode } from "react";
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
+  const { logout } = useAuthApi();
+
   const handleLogout = async () => {
     try {
       await logout();
       router.push("/");
     } catch (err: any) {
-      alert("Error logging out: " + err.message);
+      alert("Logout failed: " + err.message);
     }
   };
+
   return (
     <div>
       <SidebarProvider>
@@ -42,9 +47,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building your application
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href="#">Building your application</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
@@ -52,10 +55,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <Button variant="outline" onClick={handleLogout}>
+
+            <Button variant="outline" onClick={handleLogout} className="ml-auto">
               Logout
             </Button>
           </header>
+
           <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
         </SidebarInset>
       </SidebarProvider>
